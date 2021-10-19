@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import MealsNavigator from "./navigaton/MealsNavigator";
 const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -14,14 +15,7 @@ export default function App() {
   if (!fontLoaded) {
     <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
   }
-  return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontFamily: "open-sans" }}>
-        Open up App.js to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <MealsNavigator />;
 }
 
 const styles = StyleSheet.create({
