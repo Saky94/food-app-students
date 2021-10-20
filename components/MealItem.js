@@ -1,21 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 
 const MealItem = (props) => {
   return (
-    <View style={styles.mealItem}>
-      <TouchableOpacity onPress={props.onSelectMeal}>
-        <View>
-          <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
-            <Text>{props.title}</Text>
+    <View style={styles.mealItemWrap}>
+      <View style={styles.mealItem}>
+        <TouchableOpacity onPress={props.onSelectMeal}>
+          <View>
+            <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
+              <ImageBackground
+                source={{ uri: props.image }}
+                style={styles.bgImage}
+              >
+                <View style={styles.titleContainer}>
+                  <Text numberOfLines={1} style={styles.title}>
+                    {props.title}
+                  </Text>
+                </View>
+              </ImageBackground>
+            </View>
+            <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
+              <Text>{props.duration}min</Text>
+              <Text>{props.complexity}</Text>
+              <Text>{props.afford}</Text>
+            </View>
           </View>
-          <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text>{props.duration}min</Text>
-            <Text>{props.complexity}</Text>
-            <Text>{props.afford}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -23,10 +40,20 @@ const MealItem = (props) => {
 export default MealItem;
 
 const styles = StyleSheet.create({
+  mealItemWrap: {
+    margin: 10,
+  },
   mealItem: {
     height: 200,
     width: "100%",
     backgroundColor: "grey",
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  bgImage: {
+    height: "100%",
+    width: "100%",
+    justifyContent: "flex-end",
   },
   mealRow: {
     flexDirection: "row",
@@ -37,5 +64,18 @@ const styles = StyleSheet.create({
   mealDetail: {
     paddingHorizontal: 10,
     justifyContent: "space-between",
+    alignItems: "center",
+    height: "10%",
+  },
+  titleContainer: {
+    backgroundColor: "rgba(0,0,0,0.7)",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  title: {
+    fontFamily: "open-sans-bold",
+    fontSize: 20,
+    color: "white",
+    textAlign: "center",
   },
 });
