@@ -15,7 +15,13 @@ export default function App(props) {
   enableScreens();
   const [fontLoaded, setFontLoaded] = useState(false);
   if (!fontLoaded) {
-    <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />;
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
   }
   return <MealsNavigator />;
 }
