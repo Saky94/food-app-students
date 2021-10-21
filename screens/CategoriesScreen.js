@@ -27,7 +27,7 @@ const CategoriesScreen = (props) => {
     );
   };
 
-  console.log(props);
+  // console.log(props);
   return (
     <FlatList
       data={CATEGORIES}

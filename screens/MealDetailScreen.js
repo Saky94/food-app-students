@@ -1,21 +1,24 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-
+import { MEALS } from "../data/dummy-data";
 const MealDetailScreen = (props) => {
+  const mealId = props.navigation.getParam("mealId");
+  console.log(mealId);
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  console.log(selectedMeal);
   return (
     <View style={styles.screen}>
-      <Text>Meal detail screen</Text>
-      <Text>Come on buddy</Text>
-      <Button
-        title="Go on Meals"
-        onPress={() => {
-          props.navigation.navigate({ routeName: "" });
-        }}
-      />
+      <Text>Meal title is {selectedMeal.title}</Text>
     </View>
   );
 };
-
+MealDetailScreen.navigationOptions = (navigationData) => {
+  const mealId = navigationData.navigation.getParam("mealId");
+  const selectedMeal = MEALS.find((meal) => meal === mealId);
+  return {
+    headerTitle: selectedMeal.title,
+  };
+};
 export default MealDetailScreen;
 
 const styles = StyleSheet.create({
