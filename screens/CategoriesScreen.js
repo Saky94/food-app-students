@@ -11,6 +11,8 @@ import {
 import { CATEGORIES } from "../data/dummy-data";
 import colors from "../constants/colors";
 import CategoryGridTile from "../components/CategoryGridTile";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import CustomHeaderButton from "../components/CustomHeaderButton";
 const CategoriesScreen = (props) => {
   const renderGridItemFunction = (itemData) => {
     return (
@@ -50,8 +52,21 @@ const CategoriesScreen = (props) => {
     // </View>
   );
 };
-CategoriesScreen.navigationOptions = {
-  headerTitle: "Categories screen",
+CategoriesScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Categories screen",
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
   // headerStyle: {
   //   backgroundColor: Platform.OS === "android" ? colors.primaryColor : "",
   // },
