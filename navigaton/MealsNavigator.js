@@ -10,6 +10,12 @@ import { Platform } from "react-native";
 import colors from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? colors.primaryColor : "",
+  },
+  headerTintColor: Platform.OS === "android" ? "yellow" : colors.accentColor,
+};
 const MealsNavigator = createStackNavigator(
   {
     Categories: {
@@ -29,13 +35,17 @@ const MealsNavigator = createStackNavigator(
   },
   {
     // initialRouteName: "Categories", ovo moze ali ne dozvoljava return ili tako nesto
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: Platform.OS === "android" ? colors.primaryColor : "",
-      },
-      headerTintColor:
-        Platform.OS === "android" ? "yellow" : colors.accentColor,
-    },
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
+const FavNavigator = createStackNavigator(
+  {
+    Favorites: FavoritesScreen,
+    MealDetail: MealDetailScreen,
+  },
+  {
+    // initialRouteName: "Categories", ovo moze ali ne dozvoljava return ili tako nesto
+    defaultNavigationOptions: defaultStackNavOptions,
   }
 );
 const tabScreenConfig = {
@@ -51,7 +61,7 @@ const tabScreenConfig = {
     },
   },
   Favorites: {
-    screen: FavoritesScreen,
+    screen: FavNavigator,
     navigationOptions: {
       tabBarIcon: (tabInfo) => {
         return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
