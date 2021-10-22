@@ -10,5 +10,7 @@ const FiltersScreen = () => {
 };
 
 export default FiltersScreen;
-
+FiltersScreen.navigationOptions = {
+  headerTitle: "Filters",
+};
 const styles = StyleSheet.create({});
