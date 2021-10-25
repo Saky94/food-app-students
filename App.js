@@ -4,7 +4,14 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigaton/MealsNavigator";
+import mealsReducer from "./store/reducers/meals";
 import { enableScreens } from "react-native-screens";
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
+const rootReducer = combineReducers({
+  meals: mealsReducer,
+});
+const store = createStore(rootReducer);
 const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -23,7 +30,11 @@ export default function App(props) {
       />
     );
   }
-  return <MealsNavigator />;
+  return (
+    <Provider store={store}>
+      <MealsNavigator />
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
