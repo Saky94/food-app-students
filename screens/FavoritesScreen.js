@@ -6,7 +6,7 @@ import CustomHeaderButton from "../components/CustomHeaderButton";
 import MealList from "../components/MealList";
 import { useSelector } from "react-redux";
 const FavoritesScreen = (props) => {
-  const favMeals = useSelector((state = state.meals.favoriteMeals));
+  const favMeals = useSelector((state) => state.meals.favoriteMeals);
 
   return <MealList listData={favMeals} navigation={props.navigation} />;
 };
