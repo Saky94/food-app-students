@@ -2,6 +2,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, Text, View, Switch } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
+import { useDispatch } from "react-redux";
+import { setFilters } from "../store/actions/meals";
+
 const FilterSwitch = (props) => {
   return (
     <View style={styles.filterContainer}>
@@ -17,10 +20,13 @@ const FilterSwitch = (props) => {
 };
 const FiltersScreen = (props) => {
   const { navigation } = props;
+
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const [isLactoseFree, setIsLactoseFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
+
+  const dispatch = useDispatch();
 
   const saveFilters = useCallback(() => {
     //useCallback ce da aktivira funkciju ako je neki od dependency bude promenio
@@ -28,13 +34,16 @@ const FiltersScreen = (props) => {
       glutenFree: isGlutenFree,
       lactoseFree: isLactoseFree,
       vegan: isVegan,
-      vegeta: isVegetarian,
+      vegetarian: isVegetarian,
     };
     console.log(appliedFilters);
-  }, [isGlutenFree, isLactoseFree, isVegetarian, isVegan]);
+    dispatch(setFilters(appliedFilters));
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]);
+
   useEffect(() => {
     navigation.setParams({ save: saveFilters });
   }, [saveFilters]);
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Available filters</Text>

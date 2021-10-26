@@ -12,7 +12,13 @@ const CategoryMealsScreen = (props) => {
   const displayedMeals = availableMeals.filter(
     (meal) => meal.categoryIds.indexOf(catId) >= 0
   );
-
+  if (displayedMeals.length === 0) {
+    return (
+      <View style={styles.content}>
+        <Text>This folder is empty</Text>
+      </View>
+    );
+  }
   return <MealList listData={displayedMeals} navigation={props.navigation} />;
 };
 CategoryMealsScreen.navigationOptions = (navigationData) => {
@@ -24,4 +30,10 @@ CategoryMealsScreen.navigationOptions = (navigationData) => {
 };
 export default CategoryMealsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
