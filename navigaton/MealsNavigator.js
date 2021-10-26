@@ -75,7 +75,7 @@ const tabScreenConfig = {
       tabBarIcon: (tabInfo) => {
         return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
       },
-      tabBarColor: "blue",
+      tabBarColor: "red",
       tabBarLabel: (
         <Text style={{ fontFamily: "open-sans-bold" }}>Favoritess</Text>
       ),
