@@ -8,10 +8,12 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import FiltersScreen from "../screens/FiltersScreen";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { Platform, Text } from "react-native";
+import { Dimensions, Platform, Text } from "react-native";
 import colors from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+const { width } = Dimensions.get("window");
 const defaultStackNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? colors.primaryColor : "",
@@ -119,6 +121,10 @@ const MainNavigator = createDrawerNavigator(
   {
     contentOptions: {
       activeTintColor: "yellow",
+      activeBackgroundColor: "red",
+      // itemsContainerStyle: {
+      //   marginTop: 50,
+      // },
       labelStyle: {
         fontFamily: "open-sans-bold",
         fontSize: 20,

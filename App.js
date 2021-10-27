@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View, StatusBar } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigaton/MealsNavigator";
@@ -8,6 +7,12 @@ import mealsReducer from "./store/reducers/meals";
 import { enableScreens } from "react-native-screens";
 import { combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+  SafeAreaView,
+} from "react-native-safe-area-context";
+
 const rootReducer = combineReducers({
   meals: mealsReducer,
 });
@@ -32,7 +37,10 @@ export default function App(props) {
   }
   return (
     <Provider store={store}>
-      <MealsNavigator />
+      <StatusBar translucent backgroundColor="blue" {...props} />
+      <SafeAreaView style={styles.container}>
+        <MealsNavigator />
+      </SafeAreaView>
     </Provider>
   );
 }
@@ -40,8 +48,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    marginTop: StatusBar.currentHeight,
   },
 });
