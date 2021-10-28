@@ -10,14 +10,20 @@ import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetailsScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import Colors from "../constants/Colors";
-import FilterScreen from "../screens/FiltersScreen";
+import FiltersScreen from "../screens/FiltersScreen";
 
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const defaultStackNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+  },
+  headerTitleStyle: {
+    fontFamily: "open-sans-bold"
+  },
+  headerBackTitleStyle: {
+    fontFamily: "open-sans",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
   //headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
@@ -54,30 +60,26 @@ const FavNavigator = createStackNavigator(
 const tabScreenConfig = {
   Meals: {
     screen: MealsNavigator,
+
     navigationOptions: {
       tabBarIcon: (tabInfo) => {
         return (
-          <Ionicons
-            name="ios-restaurant"
-            size={25}
-            color={Colors.accentColor}
-          />
+          <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
         );
       },
+
       tabBarColor: Colors.primaryColor,
     },
   },
+
   Favorites: {
     screen: FavNavigator,
+
     navigationOptions: {
       //tabBarLabel: 'Favorites!'
+
       tabBarIcon: (tabInfo) => {
-        return (
-          <Ionicons name="ios-star" size={25} color={Colors.accentColor} />
-        );
-      },
-      tabBarOptions: {
-        activeTintColor: Colors.accentColor,
+        return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
       },
 
       tabBarColor: Colors.primaryColor,
@@ -88,24 +90,29 @@ const tabScreenConfig = {
 const MealsFavTabNavigator =
   Platform.OS === "android"
     ? createMaterialBottomTabNavigator(tabScreenConfig, {
-        activeTintColor: Colors.accentColor,
+        activeColor: Colors.accentColor,
+
         shifting: true, //ukoliko je shifting 'false', backgroundColor (navedeno iznad) ne radi i mora da se radi na drugi nacin
-        /* shifting: false,
-  barStyle: {
-    backgroundColor: Colors.primaryColor
-  } */
+
+        /* shifting: false,*/
+
+        barStyle: {
+          backgroundColor: Colors.primaryColor,
+        },
       })
     : createBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
           activeTintColor: Colors.accentColor,
         },
       });
-      const FiltersNavigator = createStackNavigator({
-        Filters:FilterScreen
-      })
+
+const FiltersNavigator = createStackNavigator({
+  Filters: FiltersScreen,
+});
 
 const MainNavigator = createDrawerNavigator({
   MealsFavs: MealsFavTabNavigator,
-  Filters: FiltersNavigator
+  Filters: FiltersNavigator,
 });
-export default createAppContainer(MealsFavTabNavigator);
+
+export default createAppContainer(MainNavigator);
