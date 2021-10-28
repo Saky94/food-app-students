@@ -1,6 +1,6 @@
 
 import React,{ useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View ,SafeAreaView, StatusBar} from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import MealsNavigator from './navigation/MealsNavigator';
@@ -18,7 +18,7 @@ const fetchFonts = () => {
 
 };
 
-export default function App() {
+export default function App(props) {
 const [fontLoaded, setFontLoaded]= useState(false);
 
 if(!fontLoaded)
@@ -29,7 +29,13 @@ if(!fontLoaded)
   /> );
 }
 
-  return <MealsNavigator /> 
+   return ( <>
+    <StatusBar backgroundColor= '#000066' {...props} />
+    <SafeAreaView style={styles.safeAreaStyle}>
+    <MealsNavigator />
+    </SafeAreaView>
+    </>
+   ); 
 }
 
 const styles = StyleSheet.create({
@@ -39,4 +45,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  safeAreaStyle:{
+    flex:1,
+    
+    
+    
+    
+  }
 });
