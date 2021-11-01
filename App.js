@@ -5,8 +5,20 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import MealsNavigator from './navigation/MealsNavigator';
 import { enableScreens } from 'react-native-screens';
+import {createStore, combineReducers} from 'redux';
+import mealsReducer from './store/Reducers/meals';
+import mealReducer from './store/Reducers/meals';
+import {Provider} from 'react-redux';
 
 enableScreens();
+
+//reducer-kada imamo vise reducera korisimo combineReducer
+const rootReducer=combineReducers({
+ meals: mealReducer
+});
+
+//kreiranjeStora
+const store= createStore(rootReducer);
 
 const fetchFonts = () => {
 
@@ -32,7 +44,9 @@ if(!fontLoaded)
    return ( <>
     <StatusBar backgroundColor= '#000066' {...props} />
     <SafeAreaView style={styles.safeAreaStyle}>
+      <Provider store={store}>
     <MealsNavigator />
+      </Provider>
     </SafeAreaView>
     </>
    ); 
